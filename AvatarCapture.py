@@ -27,6 +27,14 @@ def detect(filename, cascade_file="lbpcascade_animeface.xml"):
 if __name__ == '__main__':
     if os.path.exists('Data') is False:
         os.makedirs('Data')
+    if os.path.exists('IMG') is False:
+        print('file not exists!')
+        exit()
     file_list = glob('IMG/*.jpg')
     for filename in file_list:
-        detect(filename)
+        try:
+            detect(filename)
+        except:
+            print('A Error happy ...')
+        else:
+            print(str(filename)+' done !')
