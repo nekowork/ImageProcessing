@@ -16,17 +16,30 @@ def detect(filename, cascade_file="lbpcascade_animeface.xml"):
                                      # detector options
                                      scaleFactor=1.1,
                                      minNeighbors=5,
-                                     minSize=(48, 48))
+                                     minSize=(48, 48)#识别区大小
+                                     )
     for i, (x, y, w, h) in enumerate(faces):
         face = image[y: y + h, x:x + w, :]
-        #face = cv2.resize(face, (96, 96))
-        face = cv2.resize(face, (960, 960))
+        #此处输出裁剪后大小
+        face = cv2.resize(face, (256,256))
+        #可视化
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.imshow("AnimeFaceDetect", image)
+        cv2.waitKey(0)
         save_filename = '%s-%d.jpg' % (os.path.basename(filename).split('.')[0], i)
+        cv2.imwrite("out/" + save_filename, image)
+        #显示裁剪完成图片
+        #cv2.imshow("img",face)
+        #cv2.waitKey(0)
+        #保存裁剪图片打开此注释
+        #save_filename = '%s-%d.jpg' % (os.path.basename(filename).split('.')[0], i)
         cv2.imwrite("Data/" + save_filename, face)
 
 if __name__ == '__main__':
     if os.path.exists('Data') is False:
         os.makedirs('Data')
+    if os.path.exists('out') is False:
+        os.makedirs('out')
     if os.path.exists('IMG') is False:
         print('file not exists!')
         exit()
