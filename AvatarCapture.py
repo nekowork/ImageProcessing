@@ -2,6 +2,7 @@ import cv2
 import sys
 import os.path
 from glob import glob
+from matplotlib import pyplot as plt
 
 def detect(filename, cascade_file="lbpcascade_animeface.xml"):
     if not os.path.isfile(cascade_file):
@@ -24,16 +25,20 @@ def detect(filename, cascade_file="lbpcascade_animeface.xml"):
         face = cv2.resize(face, (256,256))
         #可视化
         cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-        cv2.imshow("AnimeFaceDetect", image)
-        cv2.waitKey(0)
-        save_filename = '%s-%d.jpg' % (os.path.basename(filename).split('.')[0], i)
-        cv2.imwrite("out/" + save_filename, image)
+        #cv2.imshow("AnimeFaceDetect", image)
+        #cv2.waitKey(0)
+        #save_filename = '%s-%d.jpg' % (os.path.basename(filename).split('.')[0], i)
+        #cv2.imwrite("out/" + save_filename, image)
+        #plt显示
+        cvimg = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        plt.imshow(cvimg)
+        plt.show()
         #显示裁剪完成图片
         #cv2.imshow("img",face)
         #cv2.waitKey(0)
         #保存裁剪图片打开此注释
         #save_filename = '%s-%d.jpg' % (os.path.basename(filename).split('.')[0], i)
-        cv2.imwrite("Data/" + save_filename, face)
+        #cv2.imwrite("Data/" + save_filename, face)
 
 if __name__ == '__main__':
     if os.path.exists('Data') is False:
