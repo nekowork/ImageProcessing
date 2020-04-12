@@ -31,7 +31,7 @@ def detect(filename, cascade_file="lbpcascade_animeface.xml"):
             cv2.waitKey(0)
         if opt["PLT-val"]==1:
             cvimg = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            #plt.title("菜鸟教程 - 测试")
+            #plt.title("")
             plt.imshow(cvimg)
             plt.show()
         if opt["save-val-image"]==1:
